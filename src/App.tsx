@@ -1,9 +1,6 @@
-function App() {
-  return (
-    <>
-      Teste
-    </>
-  )
-}
+import AppRoutes from './router/routes'
+import './styles.css'
 
-export default App
+export default function App() {
+  return <AppRoutes />
+}
