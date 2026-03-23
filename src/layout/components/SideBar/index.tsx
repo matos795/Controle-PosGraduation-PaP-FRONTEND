@@ -39,15 +39,15 @@ export default function SideBar() {
                         <img src={calendarioImg} alt="class-session" />
                         <p>Módulos</p>
                 </NavLink>
-                <NavLink to="/" className={({ isActive }) => `cp-menu-item ${isActive ? "cp-active" : ""}`}>
+                <NavLink to="/enrollments" className={({ isActive }) => `cp-menu-item ${isActive ? "cp-active" : ""}`}>
                         <img src={planilhaImg} alt="subscription" />
                         <p>Inscrições</p>
                 </NavLink>
-                <NavLink to="/" className={({ isActive }) => `cp-menu-item ${isActive ? "cp-active" : ""}`}>
+                <NavLink to="/payments" className={({ isActive }) => `cp-menu-item ${isActive ? "cp-active" : ""}`}>
                         <img src={contaImg} alt="payment" />
                         <p>Pagamentos</p>
                 </NavLink>
-                <NavLink to="/" className={({ isActive }) => `cp-menu-item ${isActive ? "cp-active" : ""}`}>
+                <NavLink to="/progress" className={({ isActive }) => `cp-menu-item ${isActive ? "cp-active" : ""}`}>
                         <img src={progressImg} alt="progress" />
                         <p>Progresso</p>
                 </NavLink>
