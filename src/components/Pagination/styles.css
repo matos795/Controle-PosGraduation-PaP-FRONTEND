@@ -1,0 +1,43 @@
+.cp-pagination-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 12px;
+}
+
+.cp-pagination-info {
+    font-size: 14px;
+    color: #555;
+}
+
+.cp-pagination {
+    display: flex;
+    gap: 6px;
+}
+
+.cp-pagination button {
+    padding: 6px 10px;
+    border: 1px solid #ddd;
+    background: white;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.cp-pagination button:hover {
+    background: #f2f2f2;
+}
+
+.cp-pagination button.cp-page-active {
+    background: #2f6fed;
+    color: white;
+    border-color: #2f6fed;
+}
+
+.cp-pagination button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.dots {
+    padding: 6px 6px;
+}

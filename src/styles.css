@@ -9,3 +9,19 @@ a, a:hover {
     color: unset;
     text-decoration: none;
 }
+
+.cp-btn {
+    border-radius: 6px;
+    height: 40px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+}
+
+.cp-mb20 {
+    margin-bottom: 20px;
+}
+
+.cp-pointer {
+    cursor: pointer;
+}

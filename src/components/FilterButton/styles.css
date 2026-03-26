@@ -1,0 +1,45 @@
+.cp-filterbutton {
+    display: flex;
+    line-height: 28px;
+    align-items: center;
+}
+
+.cp-filterbutton-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    height: 40px;
+    padding: 0 1rem;
+    border-radius: 6px 0 0 6px;
+    border: 1px solid #9e9ea7;
+    outline: none;
+    color: #363636;
+    cursor: pointer;
+    background: white;
+}
+
+.cp-filterbutton-btn img {
+    filter: invert(20%);
+    width: 1rem;
+    height: 1rem;
+}
+
+.cp-filterbutton-active {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    height: 40px;
+    padding: 0 1rem;
+    border-radius: 6px 0 0 6px;
+    border: 1px solid #9e9ea7;
+    outline: none;
+    color: #363636;
+    cursor: pointer;
+    background: rgb(163, 163, 163);
+}
+
+.cp-filterbutton-active img {
+    filter: invert(20%);
+    width: 1rem;
+    height: 1rem;
+}

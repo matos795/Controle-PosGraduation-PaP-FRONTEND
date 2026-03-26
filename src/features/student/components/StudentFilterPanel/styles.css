@@ -1,0 +1,45 @@
+.cp-filter-painel {
+  background: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px 25px;
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  max-height: 70px;
+}
+
+.cp-filter-painel-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cp-filter-painel-item select {
+  width: 150px;
+  height: 38px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 0 10px;
+  background: white;
+  font-size: 14px;
+  cursor: pointer;
+  outline: none;
+}
+
+.cp-filter-painel-item label {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.cp-filter-painel button {
+  margin-left: auto;
+  height: 38px;
+  padding: 0 20px;
+  border-radius: 6px;
+  border: 2px solid #e4e4e4;
+  background: #f1f1f1;
+  color: rgb(68, 68, 255);
+  font-weight: 700;
+  cursor: pointer;
+}

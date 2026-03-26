@@ -1,0 +1,7 @@
+.cp-container-table {
+    min-height: 300px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}

@@ -1,0 +1,22 @@
+.cp-status {
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  display: inline-block;
+}
+
+.cp-status-active {
+  background: #e6f7ed;
+  color: #1f8f4d;
+}
+
+.cp-status-inactive {
+  background: #fdeaea;
+  color: #d93025;
+}
+
+.cp-status-pending {
+  background: #fff4e5;
+  color: #b26a00;
+}

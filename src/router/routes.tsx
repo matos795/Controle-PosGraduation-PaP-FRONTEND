@@ -1,7 +1,10 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import AppLayout from '../layout/AppLayout'
-import Welcome from '../pages/home/Welcome'
-import NotFound from '../pages/home/NotFound'
+
+import StudentPage from '../features/student/pages/StudentPage'
+
+import NotFound from '../pages/NotFound'
+import Home from '../pages/Home'
 
 export default function AppRoutes() {
     return (
@@ -9,7 +12,8 @@ export default function AppRoutes() {
             <Routes>
                 <Route path='/' element={<AppLayout />}>
                     <Route index element={<Navigate to="home" />} />
-                    <Route path='home' element={<Welcome />} />
+                    <Route path='home' element={<Home />} />
+                    <Route path='students' element={<StudentPage />} />
                 </Route>
                 <Route path='*' element={<NotFound />} />
             </Routes>

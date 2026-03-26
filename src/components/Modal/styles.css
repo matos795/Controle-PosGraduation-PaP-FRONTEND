@@ -1,0 +1,36 @@
+.cp-modal-overlay {
+
+  position: fixed;
+
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  background: rgba(0,0,0,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 1000;
+}
+
+.cp-modal {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  min-width: 300px;
+  position: relative;
+}
+
+.cp-modal-close {
+
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 16px;
+
+}

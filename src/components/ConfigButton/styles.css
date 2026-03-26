@@ -1,0 +1,47 @@
+.cp-configbutton {
+    display: flex;
+    line-height: 28px;
+    align-items: center;
+}
+
+.cp-configbutton-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    height: 40px;
+    padding: 0 1rem;
+    border-radius: 0 6px 6px 0;
+    border: 1px solid #9e9ea7;
+    border-left: none;
+    outline: none;
+    color: #363636;
+    cursor: pointer;
+    background: white;
+}
+
+.cp-configbutton-btn img {
+    filter: invert(20%);
+    width: 1rem;
+    height: 1rem;
+}
+
+.cp-configbutton-active {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    height: 40px;
+    padding: 0 1rem;
+    border-radius: 0 6px 6px 0;
+    border: 1px solid #9e9ea7;
+    border-left: none;
+    outline: none;
+    color: #363636;
+    cursor: pointer;
+    background: rgb(153, 153, 153);
+}
+
+.cp-configbutton-active img {
+    filter: invert(20%);
+    width: 1rem;
+    height: 1rem;
+}

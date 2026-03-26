@@ -1,0 +1,35 @@
+.cp-actions {
+  position: relative;
+}
+
+.cp-actions-btn {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.cp-actions-menu {
+  position: absolute;
+  right: 0;
+  top: 25px;
+
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+
+  min-width: 120px;
+  z-index: 100;
+}
+
+.cp-actions-menu div {
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.cp-actions-menu div:hover {
+  background: #f5f7fa;
+}
