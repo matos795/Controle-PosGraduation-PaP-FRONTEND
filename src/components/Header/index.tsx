@@ -1,47 +1,66 @@
 import './styles.css'
-import { useLocation } from "react-router-dom";
+import { Link, useMatches } from "react-router-dom";
 import userImg from '../../assets/user.png'
 
 export default function Header() {
 
-    const location = useLocation();
+    const matches = useMatches();
 
-    const getTitle = (pathname: string): string => {
-        switch (pathname) {
-            case "/home":
-                return "Página Principal";
+    const current = matches[matches.length - 1];
 
-            case "/students":
-                return "Listagem de Alunos";
-
-            case "/subjects":
-                return "Listagem de Matérias";
-
-            case "/teachers":
-                return "Listagem de Professores";
-
-            case "/class-sessions":
-                return "Listagem de Módulos";
-
-            default:
-                return "Dashboard";
-        }
+    type BreadcrumbItem = {
+        label: string;
+        to?: string;
     };
+
+    type RouteHandle = {
+        title: string;
+        breadcrumb?: BreadcrumbItem[];
+    };
+
+    const handleData = (current?.handle as RouteHandle) || {};
+
+    const { title, breadcrumb = [] } = handleData;
 
     return (
         <header className="cp-header">
 
+            {/* LEFT */}
             <div className="cp-header-left">
-                <h1>{getTitle(location.pathname)}</h1>
+
+                {/* Breadcrumb */}
+                {breadcrumb.length > 0 && (
+                    <div className="cp-header-breadcrumb">
+                        {breadcrumb.map((item, index) => (
+                            <span key={index}>
+                                {item.to ? (
+                                    <Link to={item.to} className="cp-breadcrumb-link">
+                                        {item.label}
+                                    </Link>
+                                ) : (
+                                    <span className="cp-breadcrumb-current">
+                                        {item.label}
+                                    </span>
+                                )}
+
+                                {index < breadcrumb.length - 1 && " / "}
+                            </span>
+                        ))}
+                    </div>
+                )}
             </div>
 
-            <div className="cp-header-right">
+                {/* Title */}
+                <h1 className="cp-header-title">
+                    {title}
+                </h1>
 
+            {/* RIGHT */}
+            <div className="cp-header-right">
                 <div className="cp-user">
-                    <img src={userImg} alt="class-session" />
+                    <img src={userImg} alt="user" />
                     Admin ▾
                 </div>
-
             </div>
 
         </header>

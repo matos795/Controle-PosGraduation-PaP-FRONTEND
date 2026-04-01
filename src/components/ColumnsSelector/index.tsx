@@ -11,6 +11,11 @@ type Props = {
 export default function ColumnsSelector({ columns, visibleColumns, setVisibleColumns }: Props) {
 
     const [open, setOpen] = useState(false);
+    const ref = useRef<HTMLDivElement>(null);
+
+    const toggle = () => {
+        setOpen(!open);
+    };
 
     const toggleColumn = (key: string) => {
 
@@ -21,41 +26,33 @@ export default function ColumnsSelector({ columns, visibleColumns, setVisibleCol
         }
     };
 
-    const ref = useRef<HTMLDivElement>(null);
-
     // fechar ao clicar fora
         useEffect(() => {
     
-            function handleClickOutside(e: MouseEvent) {
-    
+            function handleClick(e: MouseEvent) {
+
                 if (ref.current && !ref.current.contains(e.target as Node)) {
                     setOpen(false);
                 }
             }
     
-            document.addEventListener(
-                "mousedown",
-                handleClickOutside
-            );
+            document.addEventListener("click", handleClick);
     
             return () => {
-                document.removeEventListener(
-                    "mousedown",
-                    handleClickOutside
-                );
+                document.removeEventListener("click", handleClick);
             };
     
         }, []);
 
     return (
-        <div className='cp-columns'>
+        <div className='cp-columns' ref={ref}>
 
-            <button className='cp-btn cp-columns-btn' onClick={() => setOpen(!open)}>
+            <button className='cp-btn cp-columns-btn' onClick={toggle}>
                 Columns ▼
             </button>
 
             {open && (
-                <div ref={ref} className='cp-columns-menu'>
+                <div className='cp-columns-menu'>
                     {columns
                     .filter(c => c.hideable !== false)
                     .map(c => (

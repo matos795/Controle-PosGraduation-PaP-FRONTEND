@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import StudentTable from '../../components/StudentTable'
 import StudentToolbar from '../../components/StudentToolbar'
-import './styles.css'
 import StudentConfigPanel from '../../components/StudentConfigPanel';
 import DeleteStudentsModal from '../../modals/DeleteStudentsModal';
 import ExportStudentsModal from '../../modals/ExportStudentsModal';

@@ -5,6 +5,7 @@ import SearchBar from '../../../../components/SearchBar'
 import ButtonPrimary from '../../../../components/SplitButtonPrimary'
 import './styles.css'
 import StudentFilterPainel from '../StudentFilterPanel'
+import { NavLink } from 'react-router-dom'
 
 type Props = {
     panel: "none" | "filter" | "config";
@@ -33,7 +34,9 @@ export default function StudentToolbar({ panel, setPanel }: Props) {
                         } />
                 </div>
 
-                <ButtonPrimary text='Novo Aluno' />
+                <NavLink to='/students/new'>
+                    <ButtonPrimary text='Novo Aluno' />
+                </NavLink>
 
             </div>
 
