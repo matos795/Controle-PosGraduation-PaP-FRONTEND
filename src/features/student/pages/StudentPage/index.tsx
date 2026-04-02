@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import StudentTable from '../../components/StudentTable'
 import StudentToolbar from '../../components/StudentToolbar'
 import StudentConfigPanel from '../../components/StudentConfigPanel';
@@ -8,21 +8,46 @@ import ImportStudentsModal from '../../modals/ImportStudentsModal';
 import StatusBadge from '../../../../components/StatusBadge';
 import ActionMenu from '../../../../components/ActionMenu';
 
+import { getStudents } from '../../services/student-service.ts'
+import type { StudentResponse } from '../../types/student';
+import Pagination from '../../../../components/Pagination/index.tsx';
+
 export default function StudentPage() {
 
     const [panel, setPanel] = useState<"none" | "filter" | "config">("none");
+
     const [selected, setSelected] = useState<number[]>([]);
+
     const [deleteOpen, setDeleteOpen] = useState(false);
+
     const [exportOpen, setExportOpen] = useState(false);
+
     const [importOpen, setImportOpen] = useState(false);
+    
     const [visibleColumns, setVisibleColumns] = useState([
-        "checkbox", "id", "name", "email", "status", "enrollments", "actions"
+        "checkbox", "id", "name", "email", "status", "enrollmentsCount", "actions"
     ]);
 
-    const students = [
-        { id: 1, name: "João", email: "joao@mail.com", status: "ACTIVE", enrollments: 5 },
-        { id: 2, name: "Maria", email: "maria@mail.com", status: "INACTIVE", enrollments: 7 },
-    ];
+    const [ students, setStudents ] = useState<StudentResponse[]>([]);
+    const [ page, setPage ] = useState(0);
+    const [ totalElements, setTotalElements ] = useState(0);
+    const [ loading, setLoading ] = useState(true);
+
+    useEffect(() => {
+        async function fetchData() {
+            try{
+                setLoading(true);
+                const data = await getStudents(page, 10);
+                console.log("API DATA:", data);
+                console.log("CONTENT:", data.content);
+                setStudents(data.content);
+                setTotalElements(data.totalElements);
+            } catch (err) {
+                console.error(err);
+            } finally { setLoading(false) }
+        }
+        fetchData();
+    }, [page])
 
     const columns = [
         {
@@ -30,7 +55,7 @@ export default function StudentPage() {
             header: () => (
                 <input type="checkbox" className='cp-pointer' checked={selected.length === students.length} onChange={toggleAll} />
             ),
-            render: (row: Record<string, unknown>) => {
+            render: (row: StudentResponse) => {
                 const id = row.id as number;
                 return (
                     <input type="checkbox" className='cp-pointer' checked={selected.includes(id)} onChange={() => toggleOne(id)} />
@@ -41,9 +66,11 @@ export default function StudentPage() {
         { key: "id", label: "ID" },
         { key: "name", label: "Name" },
         { key: "email", label: "Email" },
-        { key: "status", label: "Status", render: (row: Record<string, unknown>) => <StatusBadge status={row.status as string} /> },
-        { key: "enrollments", label: "Enrollments" },
-        { key: "actions", label: "", render: (row: Record<string, unknown>) => <ActionMenu id={row.id as number} />, hideable: false }
+        { key: "phone", label: "Phone" },
+        { key: "address", label: "Address" },
+        { key: "status", label: "Status", render: (row: StudentResponse) => <StatusBadge status={row.status as string} /> },
+        { key: "enrollmentsCount", label: "Enrollments" },
+        { key: "actions", label: "", render: (row: StudentResponse) => <ActionMenu id={row.id as number} />, hideable: false }
     ];
 
     const toggleOne = (id: number) => {
@@ -63,7 +90,7 @@ export default function StudentPage() {
 
     const toggleAll = () => {
 
-        if (selected.length === students.length) {
+        if (students.length > 0 && selected.length === students.length) {
             setSelected([]);
         } else {
             setSelected(students.map(s => s.id));
@@ -71,6 +98,10 @@ export default function StudentPage() {
         }
 
     };
+
+    if (loading) {
+        return <p>Loading...</p>
+    }
 
     return (
         <>
@@ -90,6 +121,8 @@ export default function StudentPage() {
             )}
 
             <StudentTable columns={columns} visibleColumns={visibleColumns} selected={selected} students={students} />
+            <Pagination page={page + 1} totalElements={totalElements} pageSize={10} onChange={(p: number) => setPage(p-1)} />
+
 
             <DeleteStudentsModal
                 open={deleteOpen}

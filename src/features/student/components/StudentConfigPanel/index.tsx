@@ -1,5 +1,5 @@
 import ColumnsSelector from '../../../../components/ColumnsSelector';
-import type { Column } from '../../types/StudentTable';
+import type { Column } from '../../../../types/StudentTable';
 import './styles.css'
 
 type Props = {

@@ -1,7 +1,8 @@
-export type Column = {
+export type Column<T> = {
   key: string;
   label: string;
   header?: () => React.ReactNode;
-  render?: (row: Record<string, unknown>) => React.ReactNode;
+  render?: (row: T) => React.ReactNode;
   hideable?: boolean;
 };
+

@@ -1,16 +1,11 @@
 import './styles.css'
-
-type Column = {
-    key: string;
-    label: string;
-    header?: () => React.ReactNode;
-    render?: (row: Record<string, unknown>) => React.ReactNode;
-};
+import type { Column } from '../../types/ColumnTable'
+import type { StudentResponse } from '../../features/student/types/student';
 
 type Props = {
-    columns: Column[];
-    data: Record<string, unknown>[];
-    isRowSelected?: (row: Record<string, unknown>) => boolean;
+    columns: Column<StudentResponse>[];
+    data: StudentResponse[];
+    isRowSelected?: (row: StudentResponse) => boolean;
 };
 
 export default function Table({ columns, data, isRowSelected }: Props) {
@@ -37,7 +32,7 @@ export default function Table({ columns, data, isRowSelected }: Props) {
                                     <td key={c.key}>
                                         {c.render
                                             ? c.render(row)
-                                            : String(row[c.key])
+                                            : String(row[c.key as keyof StudentResponse])
                                         }
                                     </td>
                                 ))}

@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import './styles.css'
-import type { Column } from '../../features/student/types/StudentTable';
+import type { Column } from '../../types/ColumnTable';
+import type { StudentResponse } from '../../features/student/types/student';
 
 type Props = {
-    columns: Column[];
+    columns: Column<StudentResponse>[];
     visibleColumns: string[];
     setVisibleColumns: (cols: string[]) => void;
 }

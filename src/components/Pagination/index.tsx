@@ -2,17 +2,17 @@ import './styles.css'
 
 type Props = {
     page: number;
-    total: number;
+    totalElements: number;
     pageSize: number;
     onChange: (page: number) => void;
 };
 
-export default function Pagination({ page, total, pageSize, onChange }: Props) {
+export default function Pagination({ page, totalElements, pageSize, onChange }: Props) {
 
-    const totalPages = Math.ceil(total / pageSize);
+    const totalPages = Math.ceil(totalElements / pageSize);
 
-    const start = total === 0 ? 0 : (page-1) * pageSize + 1;
-    const end = Math.min(page * pageSize, total);
+    const start = totalElements === 0 ? 0 : (page-1) * pageSize + 1;
+    const end = Math.min(page * pageSize, totalElements);
 
     const changePage = (p: number) => {
         if(p<1) return;
@@ -57,7 +57,7 @@ export default function Pagination({ page, total, pageSize, onChange }: Props) {
             <div className="cp-pagination-container">
 
                 <div className='cp-pagination-info'>
-                    Showing {start} to {end} of {total} entries
+                    Showing {start} to {end} of {totalElements} entries
                 </div>
 
                 <div className='cp-pagination'>
