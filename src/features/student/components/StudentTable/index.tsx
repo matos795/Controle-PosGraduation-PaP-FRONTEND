@@ -8,16 +8,17 @@ type Props = {
     visibleColumns: string[];
     selected: number[];
     students: StudentResponse[];
+    loading: boolean;
 }
 
-export default function StudentTable({ columns, visibleColumns, selected, students }: Props) {
+export default function StudentTable({ columns, visibleColumns, selected, students, loading }: Props) {
 
     const filteredColumns = columns.filter(c => visibleColumns.includes(c.key));
 
     return (
         <>
             <div className='cp-container-table'>
-                <Table columns={filteredColumns} data={students} isRowSelected={(row) => selected.includes(row.id as number)} />
+                <Table columns={filteredColumns} data={students} isRowSelected={(row) => selected.includes(row.id as number)} loading={loading} />
             </div>
         </>
     )

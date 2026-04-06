@@ -1,0 +1,15 @@
+.cp-pageSize-select {
+    height: 40px;
+    padding: 0 1rem;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    border: 1px solid #9e9ea7;
+    outline: none;
+    background-color: #ffffff;
+    color: #0d0c22;
+    cursor: pointer;
+}
+
+.cp-pageSize-select::placeholder {
+    color: #9e9ea7;
+}

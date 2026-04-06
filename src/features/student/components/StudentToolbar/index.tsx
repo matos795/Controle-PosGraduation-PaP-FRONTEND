@@ -1,25 +1,39 @@
 import ConfigButton from '../../../../components/ConfigButton'
 import FilterButton from '../../../../components/FilterButton'
-import FilterSelect from '../../../../components/FilterSelect'
 import SearchBar from '../../../../components/SearchBar'
 import ButtonPrimary from '../../../../components/SplitButtonPrimary'
 import './styles.css'
 import StudentFilterPainel from '../StudentFilterPanel'
 import { NavLink } from 'react-router-dom'
+import PageSizeSelect from '../../../../components/PageSizeSelect'
 
 type Props = {
     panel: "none" | "filter" | "config";
     setPanel: (p: "none" | "filter" | "config") => void;
-    selected: number[];
+    search: string;
+    setSearch: (v: string) => void;
+    status: string;
+    setStatus: (s: string) => void;
+    studentStatus: string[];
+    setPage: (p: number) => void;
+    size: number;
+    setSize: (s: number) => void;
 }
 
-export default function StudentToolbar({ panel, setPanel }: Props) {
+export default function StudentToolbar({ panel, setPanel, search, setSearch, status, setStatus, studentStatus, setPage, size, setSize }: Props) {
 
     return (
         <>
             <div className='cp-toolbar cp-mb20'>
-                <SearchBar />
-                <FilterSelect />
+                <SearchBar value={ search } onChange={(v) => {
+                    setSearch(v);
+                    setPage(0);
+                }} />
+
+                <PageSizeSelect value={size} onChange={(s) => {
+                    setSize(s);
+                    setPage(0);
+                }} />
 
                 <div className='cp-toolbar-buttons'>
                     <FilterButton
@@ -41,7 +55,7 @@ export default function StudentToolbar({ panel, setPanel }: Props) {
             </div>
 
             {panel === "filter" && (
-                <StudentFilterPainel />
+                <StudentFilterPainel status={status} setStatus={setStatus} setPage={setPage} options={studentStatus} />
             )}
         </>
     )

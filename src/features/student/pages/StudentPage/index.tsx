@@ -15,45 +15,55 @@ import Pagination from '../../../../components/Pagination/index.tsx';
 export default function StudentPage() {
 
     const [panel, setPanel] = useState<"none" | "filter" | "config">("none");
-
     const [selected, setSelected] = useState<number[]>([]);
-
     const [deleteOpen, setDeleteOpen] = useState(false);
-
     const [exportOpen, setExportOpen] = useState(false);
-
     const [importOpen, setImportOpen] = useState(false);
-    
+
     const [visibleColumns, setVisibleColumns] = useState([
         "checkbox", "id", "name", "email", "status", "enrollmentsCount", "actions"
     ]);
 
-    const [ students, setStudents ] = useState<StudentResponse[]>([]);
     const [ page, setPage ] = useState(0);
+    const [ size, setSize ] = useState(5);
+    const [ search, setSearch ] = useState("");
+    const [ status, setStatus ] = useState("");
+    const studentStatus = [ "ALL", "IN_PROGRESS", "COMPLETED" ];
+    const [ students, setStudents ] = useState<StudentResponse[]>([]);
     const [ totalElements, setTotalElements ] = useState(0);
     const [ loading, setLoading ] = useState(true);
 
     useEffect(() => {
         async function fetchData() {
+            
             try{
                 setLoading(true);
-                const data = await getStudents(page, 10);
-                console.log("API DATA:", data);
-                console.log("CONTENT:", data.content);
+                const data = await getStudents({
+                    page, 
+                    size, 
+                    name: search || undefined,
+                    status: status || undefined 
+                });
+
                 setStudents(data.content);
                 setTotalElements(data.totalElements);
+
             } catch (err) {
                 console.error(err);
-            } finally { setLoading(false) }
+            } finally { 
+                setLoading(false) 
+            }
         }
+        
         fetchData();
-    }, [page])
+
+    }, [page, size, search, status]);
 
     const columns = [
         {
             key: "checkbox", label: "",
             header: () => (
-                <input type="checkbox" className='cp-pointer' checked={selected.length === students.length} onChange={toggleAll} />
+                <input type="checkbox" className='cp-pointer' checked={students.length > 0 && selected.length === students.length} onChange={toggleAll} />
             ),
             render: (row: StudentResponse) => {
                 const id = row.id as number;
@@ -90,22 +100,29 @@ export default function StudentPage() {
 
     const toggleAll = () => {
 
-        if (students.length > 0 && selected.length === students.length) {
+        if (selected.length === students.length) {
             setSelected([]);
+            setPanel("none");
         } else {
-            setSelected(students.map(s => s.id));
+            setSelected(students.map(s => Number(s.id)));
             setPanel("config");
         }
 
     };
 
-    if (loading) {
-        return <p>Loading...</p>
-    }
-
     return (
         <>
-            <StudentToolbar panel={panel} setPanel={setPanel} selected={selected} />
+            <StudentToolbar 
+            panel={panel} 
+            setPanel={setPanel} 
+            search={search} 
+            setSearch={setSearch}
+            status={status}
+            setStatus={setStatus}
+            studentStatus={studentStatus}
+            size={size}
+            setSize={setSize}
+            setPage={setPage} />
 
             {panel === "config" && (
                 <StudentConfigPanel
@@ -120,8 +137,8 @@ export default function StudentPage() {
                 />
             )}
 
-            <StudentTable columns={columns} visibleColumns={visibleColumns} selected={selected} students={students} />
-            <Pagination page={page + 1} totalElements={totalElements} pageSize={10} onChange={(p: number) => setPage(p-1)} />
+            <StudentTable columns={columns} visibleColumns={visibleColumns} selected={selected} students={students} loading={loading} />
+            <Pagination page={page + 1} totalElements={totalElements} pageSize={size} onChange={(p: number) => setPage(p-1)} />
 
 
             <DeleteStudentsModal

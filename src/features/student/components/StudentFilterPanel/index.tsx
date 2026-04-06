@@ -1,17 +1,24 @@
+import FilterSelect from '../../../../components/FilterSelect';
 import './styles.css'
 
-export default function StudentFilterPanel() {
+type Props = {
+    status: string;
+    setStatus: (s: string) => void;
+    setPage: (p: number) => void;
+    options: string[];
+}
+
+export default function StudentFilterPanel({ status, setStatus, setPage, options }: Props) {
     return (
         <>
             <div className="cp-filter-painel cp-mb20">
 
                 <div className='cp-filter-painel-item'>
                     <label>Status:</label>
-                    <select>
-                        <option>All</option>
-                        <option>Active</option>
-                        <option>Inactive</option>
-                    </select>
+                    <FilterSelect value={status || "ALL"} onChange={(s) => {
+                        setStatus(s === "ALL" ? "" : s);
+                        setPage(0);
+                    }} options={options} placeholder="Status" />
                 </div>
 
                 <div className='cp-filter-painel-item'>
@@ -24,7 +31,7 @@ export default function StudentFilterPanel() {
 
 
 
-                <button>
+                <button className='cp-btn-clear'>
                     Clear Filters
                 </button>
             </div>

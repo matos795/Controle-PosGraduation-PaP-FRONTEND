@@ -6,9 +6,15 @@ type Props = {
     columns: Column<StudentResponse>[];
     data: StudentResponse[];
     isRowSelected?: (row: StudentResponse) => boolean;
+    loading: boolean;
 };
 
-export default function Table({ columns, data, isRowSelected }: Props) {
+export default function Table({ columns, data, isRowSelected, loading }: Props) {
+    
+    if (loading) {
+        return <p>Loading...</p>
+    }
+
     return (
         <>
             <div className='cp-table-content cp-mb20'>
@@ -24,20 +30,21 @@ export default function Table({ columns, data, isRowSelected }: Props) {
                     </thead>
 
                     <tbody>
-                        {data.map((row, i) => (
-                            <tr key={i}
-                                className={isRowSelected && isRowSelected(row) ? "cp-table-row-selected" : ""}
-                            >
-                                {columns.map(c => (
-                                    <td key={c.key}>
-                                        {c.render
-                                            ? c.render(row)
-                                            : String(row[c.key as keyof StudentResponse])
-                                        }
-                                    </td>
-                                ))}
-                            </tr>
-                        ))}
+                        {
+                            data.map((row, i) => (
+                                <tr key={i}
+                                    className={isRowSelected && isRowSelected(row) ? "cp-table-row-selected" : ""}
+                                >
+                                    {columns.map(c => (
+                                        <td key={c.key}>
+                                            {c.render
+                                                ? c.render(row)
+                                                : String(row[c.key as keyof StudentResponse])
+                                            }
+                                        </td>
+                                    ))}
+                                </tr>
+                            ))}
                     </tbody>
                 </table>
             </div>
