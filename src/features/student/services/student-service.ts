@@ -1,6 +1,6 @@
 import { api } from "../../../utils/api.ts"
 import type { PageResponse } from "../../../types/PageResponse.ts";
-import type { StudentResponse, CreateStudentRequest } from "../types/student.ts"
+import type { StudentResponse, CreateStudentRequest, UpdateStudentRequest } from "../types/student.ts"
 
 export async function getStudents(params: {
     page: number;
@@ -23,5 +23,15 @@ export async function getStudents(params: {
 
 export async function createStudent(student: CreateStudentRequest) {
     const response = await api.post("/students", student);
+    return response.data;
+}
+
+export async function getStudentById(id: number) {
+    const response = await api.get(`/students/${id}`);
+    return response.data;
+}
+
+export async function updateStudent(id: number, student: UpdateStudentRequest) {
+    const response = await api.put(`/students/${id}`, student);
     return response.data;
 }

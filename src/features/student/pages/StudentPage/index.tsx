@@ -15,6 +15,7 @@ import { useSearchParams } from 'react-router-dom';
 export default function StudentPage() {
 
     const [ params, setParams ] = useSearchParams();
+    const [ debouncedSearch, setDebouncedSearch ] = useState(params.get("search") || "");
 
     const [panel, setPanel] = useState<"none" | "filter" | "config">("none");
     const [selected, setSelected] = useState<number[]>([]);
@@ -42,11 +43,19 @@ export default function StudentPage() {
     const [ loading, setLoading ] = useState(true);
 
     useEffect(() => {
+        const timeout = setTimeout(() => {
+            setDebouncedSearch(search);
+        }, 500);
+
+        return () => clearTimeout(timeout);
+    }, [search]);
+
+    useEffect(() => {
         async function fetchData() {
 
             const newParams: Record<string, string> = {};
 
-            if(search) newParams.search = search;
+            if(debouncedSearch) newParams.search = debouncedSearch;
             if(status) newParams.status = status;
             if(sort) newParams.sort = `${sort},${sortDir}`;
             newParams.page = page.toString();
@@ -58,7 +67,7 @@ export default function StudentPage() {
                 const data = await getStudents({
                     page, 
                     size, 
-                    name: search || undefined,
+                    name: debouncedSearch || undefined,
                     status: status || undefined, 
                     sortBy: sort || undefined,
                     sortDir: sortDir || undefined
@@ -76,7 +85,7 @@ export default function StudentPage() {
         
         fetchData();
 
-    }, [page, size, search, status, sort, sortDir, setParams]);
+    }, [page, size, debouncedSearch, status, sort, sortDir, setParams]);
 
     const columns = [
         {

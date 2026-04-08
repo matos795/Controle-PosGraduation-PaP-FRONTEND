@@ -1,4 +1,5 @@
 import './styles.css'
+import Loading from '../Loading';
 import type { Column } from '../../types/ColumnTable'
 import type { StudentResponse } from '../../features/student/types/student';
 
@@ -12,7 +13,7 @@ type Props = {
 export default function Table({ columns, data, isRowSelected, loading }: Props) {
     
     if (loading) {
-        return <p>Loading...</p>
+        return <Loading />
     }
 
     return (

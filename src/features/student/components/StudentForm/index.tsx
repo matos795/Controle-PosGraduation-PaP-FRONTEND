@@ -1,8 +1,10 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import FormInput from '../../../../components/FormInput';
+import Loading from '../../../../components/Loading';
+import Toast from '../../../../components/Toast';
 import './styles.css'
-import { useState, type ChangeEvent, type FormEvent } from 'react';
-import { createStudent } from '../../services/student-service';
+import { useEffect, useState, type ChangeEvent, type FormEvent } from 'react';
+import { createStudent, getStudentById, updateStudent } from '../../services/student-service';
 import type { CreateStudentRequest } from '../../types/student';
 import { formatPhone } from '../../../../utils/format';
 import { isRequired } from '../../../../utils/validate';
@@ -11,7 +13,13 @@ export default function StudentForm() {
 
     const navigate = useNavigate();
 
-    const [loading, setLoading] = useState(false);
+    const { id } = useParams();
+
+    const [loadingForm, setLoadingForm] = useState(false);
+    const [loadingSave, setLoadingSave] = useState(false);
+    const [showToast, setShowToast] = useState(false);
+    const [toastMessage, setToastMessage] = useState("");
+    const [toastType, setToastType] = useState<'success' | 'error'>('success');
 
     const [form, setForm] = useState<CreateStudentRequest>({
         name: "",
@@ -50,14 +58,25 @@ export default function StudentForm() {
         if (!isValid) return;
 
         try {
-            setLoading(true);
-            await createStudent(form);
-            setLoading(false);
-            navigate("/students");
+            setLoadingSave(true);
+            if (id) {
+                await updateStudent(Number(id), form);
+                setToastMessage("Student updated successfully!");
+            } else {
+                await createStudent(form);
+                setToastMessage("Student created successfully!");
+            }
+            setShowToast(true);
+            
+            setTimeout(() => {
+                navigate("/students");
+            }, 1500);
         } catch (err) {
             console.error(err);
-            alert("Erro ao Cadastrar");
-            setLoading(false);
+            setToastMessage("Error saving student. Please try again.");
+            setToastType('error');
+            setShowToast(true);
+            setLoadingSave(false);
         }
     };
 
@@ -83,8 +102,58 @@ export default function StudentForm() {
         return Object.values(newErrors).every(e => e === "")
     }
 
+    useEffect(() => {
+        async function fetchStudent() {
+            if (!id) return;
+
+            try {
+                setLoadingForm(true);
+                const data = await getStudentById(Number(id));
+                setForm({
+                    name: data.name,
+                    email: data.email,
+                    phone: data.phone,
+                    address: data.address,
+                });
+                setLoadingForm(false);
+            } catch (err) {
+                console.error(err);
+                setToastMessage("Error loading student data. Please try again.");
+                setToastType('error');
+                setShowToast(true);
+                setLoadingForm(false);
+            }
+        }
+        fetchStudent();
+    }, [id]);
+
+
+    if (loadingForm) {
+        return (
+            <div className="cp-student-form">
+                <div className='cp-form-title cp-mb20'>
+                    Student Information
+                </div>
+                <Loading />
+            </div>
+        );
+    }
+
     return (
         <>
+            {showToast && (
+                <Toast 
+                    message={toastMessage} 
+                    type={toastType} 
+                    duration={toastType === 'success' ? 1500 : 3000}
+                    onClose={() => {
+                        setShowToast(false);
+                        if (toastType === 'success') {
+                            navigate("/students");
+                        }
+                    }} 
+                />
+            )}
             <div className="cp-student-form">
                 <div className='cp-form-title cp-mb20'>
                     Student Information
@@ -135,7 +204,7 @@ export default function StudentForm() {
                                 onChange={handleChange}
                                 error={errors.address}
                             />
-                            
+
                         </div>
                     </div>
 
@@ -146,8 +215,8 @@ export default function StudentForm() {
                             </button>
                         </Link>
 
-                        <button type="submit" className="cp-btn cp-btn-primary" disabled={loading}>
-                            {loading ? "Adding..." : "Add Student"}
+                        <button type="submit" className="cp-btn cp-btn-primary" disabled={loadingSave}>
+                            {loadingSave ? "Saving..." : "Save"}
                         </button>
                     </div>
                 </form>

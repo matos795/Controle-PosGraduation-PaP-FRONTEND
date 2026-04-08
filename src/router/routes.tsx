@@ -4,9 +4,9 @@ import StudentPage from '../features/student/pages/StudentPage'
 
 import NotFound from '../pages/NotFound'
 import Home from '../pages/Home'
-import StudentCreatePage from '../features/student/pages/StudentCreatePage'
 
 import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom";
+import StudentForm from '../features/student/components/StudentForm'
 
 const router = createBrowserRouter([
     {
@@ -39,13 +39,25 @@ const router = createBrowserRouter([
                     },
                     {
                         path: "new",
-                        element: <StudentCreatePage />,
+                        element: <StudentForm />,
                         handle: {
                             title: "Add Student",
                             breadcrumb: [
                                 { label: "Home", to: "/" },
                                 { label: "Students", to: "/students" },
                                 { label: "Add Student" }
+                            ]
+                        }
+                    },
+                    {
+                        path: ":id",
+                        element: <StudentForm />,
+                        handle: {
+                            title: "Update Student",
+                            breadcrumb: [
+                                { label: "Home", to: "/" },
+                                { label: "Students", to: "/students" },
+                                { label: "Update Student" }
                             ]
                         }
                     }

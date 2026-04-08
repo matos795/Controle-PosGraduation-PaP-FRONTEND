@@ -15,3 +15,9 @@ export type CreateStudentRequest = {
     address: string;
 }
 
+export type UpdateStudentRequest = {
+    name: string;
+    email: string;
+    phone: string;
+    address: string;
+}
