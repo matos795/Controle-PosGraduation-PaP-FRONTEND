@@ -1,13 +1,16 @@
-import { useState } from 'react';
+import { type ChangeEvent, useState } from 'react';
 import './styles.css'
 
 type Props = {
     label?: string;
     type: string;
     placeholder?: string;
+    name: string;
+    value: string;
+    onChange: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
-export default function FormInput({ label, type, placeholder, }: Props) {
+export default function FormInput({ label, type, placeholder, name, value, onChange }: Props) {
 
     const [inputType, setInputType] = useState(type === "date" ? "text" : type);
 
@@ -26,7 +29,10 @@ export default function FormInput({ label, type, placeholder, }: Props) {
                         if (type === "date" && !e.target.value) {
                             setInputType("text");
                         }
-                    }} />
+                    }}
+                    name={name}
+                    value={value}
+                    onChange={onChange} />
             </div>
         </div>
     )
