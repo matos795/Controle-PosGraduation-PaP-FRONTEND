@@ -10,8 +10,11 @@ import ActionMenu from '../../../../components/ActionMenu';
 
 import { getStudents } from '../../services/student-service.ts'
 import type { StudentResponse } from '../../types/student';
+import { useSearchParams } from 'react-router-dom';
 
 export default function StudentPage() {
+
+    const [ params, setParams ] = useSearchParams();
 
     const [panel, setPanel] = useState<"none" | "filter" | "config">("none");
     const [selected, setSelected] = useState<number[]>([]);
@@ -23,20 +26,32 @@ export default function StudentPage() {
         "checkbox", "id", "name", "email", "status", "enrollmentsCount", "actions"
     ]);
 
-    const [ page, setPage ] = useState(0);
-    const [ size, setSize ] = useState(5);
-    const [ search, setSearch ] = useState("");
-    const [ status, setStatus ] = useState("");
+    const [ page, setPage ] = useState(Number(params.get("page") || 0));
+    const [ size, setSize ] = useState(Number(params.get("size") || 5));
+    const [ search, setSearch ] = useState(params.get("search") || "");
+
+    const [ status, setStatus ] = useState(params.get("status") || "");
     const studentStatus = [ "All", "In_Progress", "Completed" ];
-    const [ sort, setSort ] = useState("Id");
-    const [ sortDir, setSortDir ] = useState<"asc" | "desc">("desc");
+
+    const [ sort, setSort ] = useState(params.get("sort")?.split(",")[0] || "Id");
+    const [ sortDir, setSortDir ] = useState<"asc" | "desc">((params.get("sort")?.split(",")[1] as "desc" | "asc") || "desc");
     const studentSort = [ "Id", "Name", "Email", "Enrollments" ];
+
     const [ students, setStudents ] = useState<StudentResponse[]>([]);
     const [ totalElements, setTotalElements ] = useState(0);
     const [ loading, setLoading ] = useState(true);
 
     useEffect(() => {
         async function fetchData() {
+
+            const newParams: Record<string, string> = {};
+
+            if(search) newParams.search = search;
+            if(status) newParams.status = status;
+            if(sort) newParams.sort = `${sort},${sortDir}`;
+            newParams.page = page.toString();
+            newParams.size = size.toString();
+            setParams(newParams);
             
             try{
                 setLoading(true);
@@ -61,7 +76,7 @@ export default function StudentPage() {
         
         fetchData();
 
-    }, [page, size, search, status, sort, sortDir]);
+    }, [page, size, search, status, sort, sortDir, setParams]);
 
     const columns = [
         {
@@ -119,6 +134,9 @@ export default function StudentPage() {
         setSort("Id");
         setSortDir("desc");
         setPage(0);
+        setSelected([]);
+        setPanel("none");
+        setSize(5);
     }
 
     return (
