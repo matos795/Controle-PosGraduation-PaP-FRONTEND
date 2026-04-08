@@ -1,5 +1,4 @@
 import './styles.css'
-import filterImg from '../../assets/filterSelect/filter.svg'
 import { useEffect, useRef, useState } from 'react';
 
 type Props = {
@@ -7,9 +6,11 @@ type Props = {
     onChange: (value: string) => void;
     options: string[];
     placeholder?: string;
+    sortDir: string;
+    setSortDir: (sbd: string) => void;
 }
 
-export default function FilterSelect({ value, onChange, options, placeholder = "Select" }: Props) {
+export default function SortBySelect({ value, onChange, options, placeholder = "Select", sortDir, setSortDir }: Props) {
 
     const [open, setOpen] = useState(false);
     const ref = useRef<HTMLDivElement>(null);
@@ -41,18 +42,23 @@ export default function FilterSelect({ value, onChange, options, placeholder = "
 
     return (
         <>
-            <div className="cp-filter" ref={ref}>
-                <button type="button" className="cp-filter-btn" onClick={toggle}>
-                    <img src={filterImg} alt="filter" />
-                    <p>{value || placeholder}</p>
-                    <span className="cp-select-btn-arrow">▼</span>
-                </button>
+            <div className="cp-sort" ref={ref}>
+                <div className='cp-sort-container'>
+                    <button type="button" className="cp-sort-btn" onClick={toggle}>
+                        <p>{value || placeholder}</p>
+                        <span className="cp-select-btn-arrow">▼</span>
+                    </button>
+                    <button type="button" className='cp-sort-direction-btn' onClick={() => setSortDir(sortDir === 'asc' ? 'desc' : 'asc')}>
+                        <span className="cp-direction-icon">{sortDir === 'asc' ? '↑' : '↓'}</span>
+                    </button>
+                </div>
+
 
                 {open && (
-                    <div className="cp-filter-menu">
+                    <div className="cp-sort-menu">
 
                         {options.map(s => (
-                            <div className="cp-filter-item" onClick={() => selectOption(s)} key={(s === "ALL" ? "" : s)}>
+                            <div className="cp-sort-item" onClick={() => selectOption(s)} key={(s === "ALL" ? "" : s)}>
                                 {s}
                             </div>
                         ))}

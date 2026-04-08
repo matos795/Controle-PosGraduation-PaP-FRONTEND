@@ -15,17 +15,22 @@ type Props = {
     status: string;
     setStatus: (s: string) => void;
     studentStatus: string[];
+    sort: string;
+    setSort: (sb: string) => void;
+    studentSort: string[];
+    sortDir: string;
+    setSortDir: (sbd: string) => void;
     setPage: (p: number) => void;
     size: number;
     setSize: (s: number) => void;
 }
 
-export default function StudentToolbar({ panel, setPanel, search, setSearch, status, setStatus, studentStatus, setPage, size, setSize }: Props) {
+export default function StudentToolbar({ panel, setPanel, search, setSearch, status, setStatus, studentStatus, sort, setSort, studentSort, sortDir, setSortDir, setPage, size, setSize }: Props) {
 
     return (
         <>
             <div className='cp-toolbar cp-mb20'>
-                <SearchBar value={ search } onChange={(v) => {
+                <SearchBar value={search} onChange={(v) => {
                     setSearch(v);
                     setPage(0);
                 }} />
@@ -55,7 +60,15 @@ export default function StudentToolbar({ panel, setPanel, search, setSearch, sta
             </div>
 
             {panel === "filter" && (
-                <StudentFilterPainel status={status} setStatus={setStatus} setPage={setPage} options={studentStatus} />
+                <StudentFilterPainel
+                    status={status}
+                    setStatus={setStatus}
+                    statusOptions={studentStatus}
+                    sort={sort} setSort={setSort}
+                    sortDir={sortDir} setSortDir={setSortDir}
+                    sortByOptions={studentSort}
+                    setPage={setPage}
+                />
             )}
         </>
     )

@@ -1,34 +1,54 @@
 .cp-filter {
     display: flex;
-    line-height: 28px;
     align-items: center;
     position: relative;
+    width: 180px;
+    min-width: 180px;
 }
 
 .cp-filter-btn {
     display: flex;
     align-items: center;
-    gap: 6px;
+    justify-content: space-between;
+    gap: 8px;
+    width: 100%;
     height: 40px;
-    padding: 0 1rem;
+    padding: 0 0.9rem;
     border-radius: 8px;
-    border: 1px solid #9e9ea7;
+    border: 1px solid #ddd;
     outline: none;
     color: #363636;
     cursor: pointer;
     background: white;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+.cp-filter-btn:hover {
+    background-color: #f9f9f9;
+    border-color: #bbb;
 }
 
 .cp-filter-btn img {
     filter: invert(20%);
     width: 1rem;
     height: 1rem;
+    flex-shrink: 0;
 }
 
-.cp-filter-btn-arrow {
-    margin-left: 5rem;
+.cp-filter-btn p {
+    margin: 0;
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: left;
+    font-size: 14px;
+}
+
+.cp-select-btn-arrow {
     font-size: 12px;
     color: #363636;
+    flex-shrink: 0;
 }
 
 .cp-filter-menu {
@@ -38,16 +58,19 @@
     background: white;
     border: 1px solid #ddd;
     border-radius: 6px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     width: 100%;
     z-index: 10;
 }
 
 .cp-filter-item {
-    padding: 8px 12px;
+    padding: 10px 12px;
     cursor: pointer;
+    font-size: 14px;
+    color: #363636;
+    transition: background-color 0.15s;
 }
 
 .cp-filter-item:hover {
-    background: #f2f5f9;
+    background: #f4f4f8;
 }

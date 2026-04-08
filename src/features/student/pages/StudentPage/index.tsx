@@ -28,7 +28,10 @@ export default function StudentPage() {
     const [ size, setSize ] = useState(5);
     const [ search, setSearch ] = useState("");
     const [ status, setStatus ] = useState("");
-    const studentStatus = [ "ALL", "IN_PROGRESS", "COMPLETED" ];
+    const studentStatus = [ "All", "In_Progress", "Completed" ];
+    const [ sort, setSort ] = useState("");
+    const [ sortDir, setSortDir ] = useState<"asc" | "desc">("asc");
+    const studentSort = [ "Id", "Name", "Email", "Enrollments" ];
     const [ students, setStudents ] = useState<StudentResponse[]>([]);
     const [ totalElements, setTotalElements ] = useState(0);
     const [ loading, setLoading ] = useState(true);
@@ -42,7 +45,9 @@ export default function StudentPage() {
                     page, 
                     size, 
                     name: search || undefined,
-                    status: status || undefined 
+                    status: status || undefined, 
+                    sortBy: sort || undefined,
+                    sortDir: sortDir || undefined
                 });
 
                 setStudents(data.content);
@@ -57,7 +62,7 @@ export default function StudentPage() {
         
         fetchData();
 
-    }, [page, size, search, status]);
+    }, [page, size, search, status, sort, sortDir]);
 
     const columns = [
         {
@@ -120,6 +125,11 @@ export default function StudentPage() {
             status={status}
             setStatus={setStatus}
             studentStatus={studentStatus}
+            sort={sort}
+            setSort={setSort}
+            studentSort={studentSort}
+            sortDir={sortDir}
+            setSortDir={(dir: string) => setSortDir(dir as "asc" | "desc")}
             size={size}
             setSize={setSize}
             setPage={setPage} />

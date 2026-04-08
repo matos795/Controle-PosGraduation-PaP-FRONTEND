@@ -7,8 +7,17 @@ export async function getStudents(params: {
     size: number;
     name?: string;
     status?: string;
+    sortBy?: string;
+    sortDir?: string;
 }): Promise<PageResponse<StudentResponse>> {
-    const response = await api.get("/students", { params });
+    const response = await api.get("/students", { params:{
+        page: params.page,
+        size: params.size,
+        name: params.name,
+        status: params.status,
+        sort: params.sortBy
+        ? `${params.sortBy}, ${params.sortDir}` : undefined
+    }});
     return response.data;
 }
 
