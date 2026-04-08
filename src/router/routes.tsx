@@ -62,15 +62,21 @@ const router = createBrowserRouter([
                         }
                     }
                 ]
+            },
+            {
+                path: "*",
+                element: <NotFound />,
+                handle: {
+                    breadcrumb: [
+                        { label: "Home", to: "/" },
+                        { label: "Not Found" }
+                    ]
+                }
             }
         ]
-    },
-    {
-        path: "*",
-        element: <NotFound />
     }
 ]);
 
 export default function AppRoutes() {
-        return <RouterProvider router={router} />;
+    return <RouterProvider router={router} />;
 }
