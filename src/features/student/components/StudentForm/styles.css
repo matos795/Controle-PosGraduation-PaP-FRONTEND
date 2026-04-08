@@ -78,3 +78,9 @@
     background-color: #1d4ed8;
     color: white;
 }
+
+.cp-error {
+    color: red;
+    font-size: 12px;
+    margin-top: 4px;
+}

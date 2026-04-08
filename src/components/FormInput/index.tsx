@@ -8,9 +8,10 @@ type Props = {
     name: string;
     value: string;
     onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+    error?: string;
 }
 
-export default function FormInput({ label, type, placeholder, name, value, onChange }: Props) {
+export default function FormInput({ label, type, placeholder, name, value, onChange, error }: Props) {
 
     const [inputType, setInputType] = useState(type === "date" ? "text" : type);
 
@@ -34,6 +35,7 @@ export default function FormInput({ label, type, placeholder, name, value, onCha
                     value={value}
                     onChange={onChange} />
             </div>
+            {error && <span className='cp-error'>{error}</span>}
         </div>
     )
 }

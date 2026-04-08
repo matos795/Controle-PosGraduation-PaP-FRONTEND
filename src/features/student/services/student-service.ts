@@ -1,4 +1,4 @@
-import { api } from "../../../services/api.ts"
+import { api } from "../../../utils/api.ts"
 import type { PageResponse } from "../../../types/PageResponse.ts";
 import type { StudentResponse, CreateStudentRequest } from "../types/student.ts"
 
