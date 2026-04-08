@@ -12,9 +12,10 @@ type Props = {
     sortDir: string;
     setSortDir: (sbd: string) => void;
     sortByOptions: string[];
+    onClearFilters: () => void;
 }
 
-export default function StudentFilterPanel({ status, setStatus, statusOptions, sort, setSort, sortDir, setSortDir, sortByOptions, setPage  }: Props) {
+export default function StudentFilterPanel({ status, setStatus, statusOptions, sort, setSort, sortDir, setSortDir, sortByOptions, setPage, onClearFilters  }: Props) {
     return (
         <>
             <div className="cp-filter-painel cp-mb20">
@@ -37,7 +38,9 @@ export default function StudentFilterPanel({ status, setStatus, statusOptions, s
                     setSortDir={setSortDir} />
                 </div>
 
-
+                <button className='cp-btn-clear' onClick={onClearFilters}>
+                    Clear Filters
+                </button>
             </div>
         </>
     )

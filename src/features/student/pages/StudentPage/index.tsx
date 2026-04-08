@@ -111,8 +111,15 @@ export default function StudentPage() {
             setSelected(students.map(s => Number(s.id)));
             setPanel("config");
         }
-
     };
+
+    const clearFilters = () => {
+        setSearch("");
+        setStatus("");
+        setSort("Id");
+        setSortDir("desc");
+        setPage(0);
+    }
 
     return (
         <>
@@ -131,7 +138,8 @@ export default function StudentPage() {
             setSortDir={(dir: string) => setSortDir(dir as "desc" | "asc")}
             size={size}
             setSize={setSize}
-            setPage={setPage} />
+            setPage={setPage}
+            onClearFilters={clearFilters} />
 
             {panel === "config" && (
                 <StudentConfigPanel

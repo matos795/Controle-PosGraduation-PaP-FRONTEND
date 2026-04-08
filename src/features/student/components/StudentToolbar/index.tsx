@@ -23,9 +23,10 @@ type Props = {
     setPage: (p: number) => void;
     size: number;
     setSize: (s: number) => void;
+    onClearFilters: () => void;
 }
 
-export default function StudentToolbar({ panel, setPanel, search, setSearch, status, setStatus, studentStatus, sort, setSort, studentSort, sortDir, setSortDir, setPage, size, setSize }: Props) {
+export default function StudentToolbar({ panel, setPanel, search, setSearch, status, setStatus, studentStatus, sort, setSort, studentSort, sortDir, setSortDir, setPage, size, setSize, onClearFilters }: Props) {
 
     return (
         <>
@@ -68,6 +69,7 @@ export default function StudentToolbar({ panel, setPanel, search, setSearch, sta
                     sortDir={sortDir} setSortDir={setSortDir}
                     sortByOptions={studentSort}
                     setPage={setPage}
+                    onClearFilters={onClearFilters}
                 />
             )}
         </>
