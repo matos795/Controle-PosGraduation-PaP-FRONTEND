@@ -35,3 +35,13 @@ export async function updateStudent(id: number, student: UpdateStudentRequest) {
     const response = await api.put(`/students/${id}`, student);
     return response.data;
 }
+
+export async function deleteStudent(id: number) {
+    await api.delete(`/students/${id}`)
+}
+
+export async function deleteSelectedStudents(ids: number[]) {
+    await api.delete(`/students`, {
+        data: ids
+    });
+}

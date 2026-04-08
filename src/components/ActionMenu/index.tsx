@@ -4,9 +4,10 @@ import { useNavigate } from 'react-router-dom';
 
 type Props = {
     id: number;
+    onDelete?: () => void;
 };
 
-export default function ActionMenu({ id }: Props) {
+export default function ActionMenu({ id, onDelete }: Props) {
 
     const [open, setOpen] = useState(false);
 
@@ -23,7 +24,8 @@ export default function ActionMenu({ id }: Props) {
     };
 
     const handleDelete = () => {
-        console.log("delete", id);
+        setOpen(false);
+        onDelete?.();
     };
 
     // fechar ao clicar fora
