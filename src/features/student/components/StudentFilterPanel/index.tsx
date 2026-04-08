@@ -29,13 +29,15 @@ export default function StudentFilterPanel({ status, setStatus, statusOptions, s
 
                 <div className='cp-filter-painel-item'>
                     <label>Sort by:</label>
-                    <SortBySelect value={sort || "Select Sorting"} onChange={(sb) => {
-                        setSort(sb === "Select Sorting" ? "" : sb);
+                    <SortBySelect value={sort || "Sort By"} onChange={(sb) => {
+                        setSort(sb === "Sort By" ? "" : sb);
                         setPage(0);
                     }} options={sortByOptions} placeholder="Sort By"
                     sortDir={sortDir}
                     setSortDir={setSortDir} />
                 </div>
+
+
             </div>
         </>
     )

@@ -17,7 +17,7 @@ export default function Table({ columns, data, isRowSelected, loading }: Props) 
 
     return (
         <>
-            <div className='cp-table-content cp-mb20'>
+            <div className='cp-table-content'>
                 <table className='cp-table'>
                     <thead>
                         <tr>

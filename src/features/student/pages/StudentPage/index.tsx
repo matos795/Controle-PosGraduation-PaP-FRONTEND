@@ -10,7 +10,6 @@ import ActionMenu from '../../../../components/ActionMenu';
 
 import { getStudents } from '../../services/student-service.ts'
 import type { StudentResponse } from '../../types/student';
-import Pagination from '../../../../components/Pagination/index.tsx';
 
 export default function StudentPage() {
 
@@ -29,8 +28,8 @@ export default function StudentPage() {
     const [ search, setSearch ] = useState("");
     const [ status, setStatus ] = useState("");
     const studentStatus = [ "All", "In_Progress", "Completed" ];
-    const [ sort, setSort ] = useState("");
-    const [ sortDir, setSortDir ] = useState<"asc" | "desc">("asc");
+    const [ sort, setSort ] = useState("Id");
+    const [ sortDir, setSortDir ] = useState<"asc" | "desc">("desc");
     const studentSort = [ "Id", "Name", "Email", "Enrollments" ];
     const [ students, setStudents ] = useState<StudentResponse[]>([]);
     const [ totalElements, setTotalElements ] = useState(0);
@@ -129,7 +128,7 @@ export default function StudentPage() {
             setSort={setSort}
             studentSort={studentSort}
             sortDir={sortDir}
-            setSortDir={(dir: string) => setSortDir(dir as "asc" | "desc")}
+            setSortDir={(dir: string) => setSortDir(dir as "desc" | "asc")}
             size={size}
             setSize={setSize}
             setPage={setPage} />
@@ -147,9 +146,7 @@ export default function StudentPage() {
                 />
             )}
 
-            <StudentTable columns={columns} visibleColumns={visibleColumns} selected={selected} students={students} loading={loading} />
-            <Pagination page={page + 1} totalElements={totalElements} pageSize={size} onChange={(p: number) => setPage(p-1)} />
-
+            <StudentTable columns={columns} visibleColumns={visibleColumns} selected={selected} students={students} loading={loading} page={page} totalElements={totalElements} pageSize={size} onPageChange={setPage} />
 
             <DeleteStudentsModal
                 open={deleteOpen}
