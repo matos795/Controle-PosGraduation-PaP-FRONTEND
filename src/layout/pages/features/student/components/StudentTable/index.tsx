@@ -1,8 +1,8 @@
-import Table from '../../../../components/Table'
-import Pagination from '../../../../components/Pagination'
+import Table from '../../../../../../components/Table'
+import Pagination from '../../../../../../components/Pagination'
 import './styles.css'
-import type { Column } from '../../../../types/ColumnTable';
-import type { StudentResponse } from '../../../../types/student'
+import type { Column } from '../../../../../../types/ColumnTable';
+import type { StudentResponse } from '../../../../../../types/student'
 
 type Props = {
     columns: Column<StudentResponse>[];

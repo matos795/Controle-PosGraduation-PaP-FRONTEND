@@ -1,5 +1,5 @@
-import FilterSelect from '../../../../components/FilterSelect';
-import SortBySelect from '../../../../components/SortBySelect';
+import FilterSelect from '../../../../../../components/FilterSelect';
+import SortBySelect from '../../../../../../components/SortBySelect';
 import './styles.css'
 
 type Props = {

@@ -1,5 +1,6 @@
-import ColumnsSelector from '../../../../components/ColumnsSelector';
-import type { Column } from '../../../../types/StudentTable';
+import ColumnsSelector from '../../../../../../components/ColumnsSelector';
+import type { Column } from '../../../../../../types/ColumnTable';
+import type { StudentResponse } from '../../../../../../types/student';
 import './styles.css'
 
 type Props = {
@@ -9,7 +10,7 @@ type Props = {
     onExport: () => void;
     onImport: () => void;
 
-    columns: Column[];
+    columns: Column<StudentResponse>[];
     visibleColumns: string[];
     setVisibleColumns: (cols: string[]) => void;
 };

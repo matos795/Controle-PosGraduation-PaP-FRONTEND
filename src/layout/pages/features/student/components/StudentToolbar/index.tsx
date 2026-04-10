@@ -1,11 +1,11 @@
-import ConfigButton from '../../../../components/ConfigButton'
-import FilterButton from '../../../../components/FilterButton'
-import SearchBar from '../../../../components/SearchBar'
-import ButtonPrimary from '../../../../components/SplitButtonPrimary'
+import ConfigButton from '../../../../../../components/ConfigButton'
+import FilterButton from '../../../../../../components/FilterButton'
+import SearchBar from '../../../../../../components/SearchBar'
+import ButtonPrimary from '../../../../../../components/SplitButtonPrimary'
 import './styles.css'
 import StudentFilterPainel from '../StudentFilterPanel'
 import { NavLink } from 'react-router-dom'
-import PageSizeSelect from '../../../../components/PageSizeSelect'
+import PageSizeSelect from '../../../../../../components/PageSizeSelect'
 
 type Props = {
     panel: "none" | "filter" | "config";
