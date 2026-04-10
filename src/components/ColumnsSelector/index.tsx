@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import './styles.css'
 import type { Column } from '../../types/ColumnTable';
-import type { StudentResponse } from '../../features/student/types/student';
+import type { StudentResponse } from '../../types/student';
 
 type Props = {
     columns: Column<StudentResponse>[];

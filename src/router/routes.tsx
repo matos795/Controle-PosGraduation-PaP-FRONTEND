@@ -1,13 +1,13 @@
 import AppLayout from '../layout/AppLayout'
 
-import StudentPage from '../features/student/pages/StudentPage'
+import StudentPage from '../layout/pages/features/student/pages/StudentPage'
 
-import NotFound from '../pages/NotFound'
-import Home from '../pages/Home'
+import NotFound from '../layout/pages/NotFound'
+import Home from '../layout/pages/Home'
 
 import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom";
-import StudentForm from '../features/student/components/StudentForm'
-import SubjectPage from '../features/subjects/pages/SubjectPage';
+import StudentForm from '../layout/pages/features/student/components/StudentForm'
+import SubjectPage from '../layout/pages/features/subjects/pages/SubjectPage';
 
 const router = createBrowserRouter([
     {

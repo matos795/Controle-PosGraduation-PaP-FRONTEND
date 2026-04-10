@@ -1,7 +1,7 @@
 import './styles.css'
 import Loading from '../Loading';
 import type { Column } from '../../types/ColumnTable'
-import type { StudentResponse } from '../../features/student/types/student';
+import type { StudentResponse } from '../../types/student';
 
 type Props = {
     columns: Column<StudentResponse>[];
