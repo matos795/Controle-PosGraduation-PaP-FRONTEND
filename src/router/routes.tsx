@@ -7,6 +7,7 @@ import Home from '../pages/Home'
 
 import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom";
 import StudentForm from '../features/student/components/StudentForm'
+import SubjectPage from '../features/subjects/pages/SubjectPage';
 
 const router = createBrowserRouter([
     {
@@ -61,6 +62,21 @@ const router = createBrowserRouter([
                             ]
                         }
                     }
+                ],
+            },
+            {
+                path: "subjects",
+                children: [
+                    {
+                        index: true,
+                        element: <SubjectPage />,
+                        handle: {
+                            title: "Subjects",
+                            breadcrumb: [
+                                { label: "Home", to: "/" },
+                                { label: "Subjects" }]
+                        }
+                    },
                 ]
             },
             {
