@@ -1,12 +1,7 @@
-import FilterSelect from '../../../../../../components/FilterSelect';
 import SortBySelect from '../../../../../../components/SortBySelect';
 import './styles.css'
 
 type Props = {
-    status: string;
-    setStatus: (s: string) => void;
-    setPage: (p: number) => void;
-    statusOptions: string[];
     sort: string;
     setSort: (sb: string) => void;
     sortDir: string;
@@ -15,27 +10,18 @@ type Props = {
     onClearFilters: () => void;
 }
 
-export default function StudentFilterPanel({ status, setStatus, statusOptions, sort, setSort, sortDir, setSortDir, sortByOptions, setPage, onClearFilters  }: Props) {
+export default function SubjectFilterPanel({ sort, setSort, sortDir, setSortDir, sortByOptions, onClearFilters }: Props) {
     return (
         <>
             <div className="cp-filter-painel cp-mb20">
 
                 <div className='cp-filter-painel-item'>
-                    <label>Status:</label>
-                    <FilterSelect value={status || "All"} onChange={(s) => {
-                        setStatus(s === "All" ? "" : s);
-                        setPage(0);
-                    }} options={statusOptions} placeholder="Status" />
-                </div>
-
-                <div className='cp-filter-painel-item'>
                     <label>Sort by:</label>
                     <SortBySelect value={sort || "Sort By"} onChange={(sb) => {
                         setSort(sb === "Sort By" ? "" : sb);
-                        setPage(0);
                     }} options={sortByOptions} placeholder="Sort By"
-                    sortDir={sortDir}
-                    setSortDir={setSortDir} />
+                        sortDir={sortDir}
+                        setSortDir={setSortDir} />
                 </div>
 
                 <button className='cp-btn-clear' onClick={onClearFilters}>

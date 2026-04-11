@@ -1,32 +1,17 @@
 import './styles.css'
 import { useEffect, useRef, useState } from "react";
-import { useNavigate } from 'react-router-dom';
 
 type Props = {
-    id: number;
+    onEdit?: () => void;
     onDelete?: () => void;
+    onView?: () => void;
 };
 
-export default function ActionMenu({ id, onDelete }: Props) {
+export default function ActionMenu({ onEdit, onDelete, onView }: Props) {
 
     const [open, setOpen] = useState(false);
 
     const ref = useRef<HTMLDivElement>(null);
-
-    const navigate = useNavigate();
-
-    const handleEdit = () => {
-        navigate(`/students/${id}`);
-    };
-
-    const handleView = () => {
-        navigate(`/students/${id}/view`);
-    };
-
-    const handleDelete = () => {
-        setOpen(false);
-        onDelete?.();
-    };
 
     // fechar ao clicar fora
     useEffect(() => {
@@ -60,15 +45,21 @@ export default function ActionMenu({ id, onDelete }: Props) {
                 {open && (
                     <div className="cp-actions-menu">
 
-                        <div onClick={handleEdit}>
-                            Edit
-                        </div>
-                        <div onClick={handleView}>
-                            View
-                        </div>
-                        <div onClick={handleDelete}>
-                            Delete
-                        </div>
+                        {onEdit &&
+                            <div onClick={onEdit}>
+                                Edit
+                            </div>
+                        }
+                        {onView &&
+                            <div onClick={onView}>
+                                View
+                            </div>
+                        }
+                        {onDelete &&
+                            <div onClick={onDelete}>
+                                Delete
+                            </div>
+                        }
 
                     </div>
                 )}

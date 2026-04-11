@@ -1,15 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 import './styles.css'
 import type { Column } from '../../types/ColumnTable';
-import type { StudentResponse } from '../../types/student';
 
-type Props = {
-    columns: Column<StudentResponse>[];
+type Props<T> = {
+    columns: Column<T>[];
     visibleColumns: string[];
     setVisibleColumns: (cols: string[]) => void;
 }
 
-export default function ColumnsSelector({ columns, visibleColumns, setVisibleColumns }: Props) {
+export default function ColumnsSelector<T>({ columns, visibleColumns, setVisibleColumns }: Props<T>) {
 
     const [open, setOpen] = useState(false);
     const ref = useRef<HTMLDivElement>(null);

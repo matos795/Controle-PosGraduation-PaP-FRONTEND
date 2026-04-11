@@ -1,8 +1,13 @@
 import type { CreateSubjectRequest, SubjectResponse, UpdateSubjectRequest } from "../types/subject";
 import { api } from "../utils/api";
 
-export async function getSubjects(): Promise<SubjectResponse[]> {
-    const response = await api.get("/subjects");
+export async function getSubjects(params: {name?: string; sortBy?: string; sortDir?: string; }): Promise<SubjectResponse[]> {
+    const response = await api.get("/subjects", {
+        params: {
+            name: params.name,
+            sort: params.sortBy ? `${params.sortBy}, ${params.sortDir}` : undefined
+        }
+    });
     return response.data;
 }
 

@@ -2,18 +2,20 @@ import { useEffect, useState } from 'react';
 import StudentTable from '../../components/StudentTable'
 import StudentToolbar from '../../components/StudentToolbar'
 import StudentConfigPanel from '../../components/StudentConfigPanel';
-import DeleteStudentsModal from '../../modals/DeleteStudentsModal';
-import ExportStudentsModal from '../../modals/ExportStudentsModal';
-import ImportStudentsModal from '../../modals/ImportStudentsModal';
 import StatusBadge from '../../../../../../components/StatusBadge';
 import ActionMenu from '../../../../../../components/ActionMenu';
 
 import { getStudents, deleteStudent, deleteSelectedStudents } from '../../../../../../services/student-service.ts'
 import type { StudentResponse } from '../../../../../../types/student.ts';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import Toast from '../../../../../../components/Toast/index.tsx';
+import ModalDelete from '../../../../../../components/ModalDelete/index.tsx';
+import ModalImport from '../../../../../../components/ModalImport/index.tsx';
+import ModalExport from '../../../../../../components/ModalExport/index.tsx';
 
 export default function StudentPage() {
+
+    const navigate = useNavigate();
 
     const [params, setParams] = useSearchParams();
     const [debouncedSearch, setDebouncedSearch] = useState(params.get("search") || "");
@@ -153,7 +155,7 @@ export default function StudentPage() {
         { key: "address", label: "Address" },
         { key: "status", label: "Status", render: (row: StudentResponse) => <StatusBadge status={row.status as string} /> },
         { key: "enrollmentsCount", label: "Enrollments" },
-        { key: "actions", label: "", render: (row: StudentResponse) => <ActionMenu id={row.id as number} onDelete={() => handleRowDelete(row.id as number)} />, hideable: false }
+        { key: "actions", label: "", render: (row: StudentResponse) => <ActionMenu onEdit={() => navigate(`/students/${row.id}`)} onDelete={() => handleRowDelete(row.id as number)} />, hideable: false }
     ];
 
     const toggleOne = (id: number) => {
@@ -235,9 +237,20 @@ export default function StudentPage() {
                 />
             )}
 
-            <StudentTable columns={columns} visibleColumns={visibleColumns} selected={selected} students={students} loading={loading} page={page} totalElements={totalElements} pageSize={size} onPageChange={setPage} />
+            <StudentTable 
+            columns={columns} 
+            visibleColumns={visibleColumns} 
+            selected={selected} 
+            students={students} 
+            loading={loading} 
+            page={page} 
+            totalElements={totalElements} 
+            pageSize={size} 
+            onPageChange={setPage} 
+            />
 
-            <DeleteStudentsModal
+            <ModalDelete
+                feature='students'
                 open={deleteOpen}
                 count={deleteTargetId !== null ? 1 : selected.length}
                 onClose={() => {
@@ -246,14 +259,16 @@ export default function StudentPage() {
                 }}
                 onConfirm={handleDeleteConfirm} />
 
-            <ExportStudentsModal
+            <ModalExport
+                title='Export Students'
                 open={exportOpen}
                 onClose={() => setExportOpen(false)}
                 onExport={() => {
                     setExportOpen(false);
                 }} />
 
-            <ImportStudentsModal
+            <ModalImport
+                title='Import Students'
                 open={importOpen}
                 onClose={() => setImportOpen(false)}
                 onImport={() => {

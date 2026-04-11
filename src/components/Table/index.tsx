@@ -1,16 +1,15 @@
 import './styles.css'
 import Loading from '../Loading';
 import type { Column } from '../../types/ColumnTable'
-import type { StudentResponse } from '../../types/student';
 
-type Props = {
-    columns: Column<StudentResponse>[];
-    data: StudentResponse[];
-    isRowSelected?: (row: StudentResponse) => boolean;
+type Props<T> = {
+    columns: Column<T>[];
+    data: T[];
+    isRowSelected?: (row: T) => boolean;
     loading: boolean;
 };
 
-export default function Table({ columns, data, isRowSelected, loading }: Props) {
+export default function Table<T>({ columns, data, isRowSelected, loading }: Props<T>) {
     
     if (loading) {
         return <Loading />
@@ -40,7 +39,7 @@ export default function Table({ columns, data, isRowSelected, loading }: Props) 
                                         <td key={c.key}>
                                             {c.render
                                                 ? c.render(row)
-                                                : String(row[c.key as keyof StudentResponse])
+                                                : String(row[c.key as keyof T])
                                             }
                                         </td>
                                     ))}
