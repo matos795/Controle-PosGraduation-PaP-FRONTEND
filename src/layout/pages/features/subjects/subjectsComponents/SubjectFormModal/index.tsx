@@ -12,7 +12,7 @@ type Props = {
     title: string;
     open: boolean;
     subject: SubjectResponse | null;
-    setEditingSubject: () => void;
+    setEditingSubject: (sub: SubjectResponse | null) => void;
     onClose: () => void;
     setToastMessage: (message: string) => void;
     setToastType: (type: 'success' | 'error') => void;

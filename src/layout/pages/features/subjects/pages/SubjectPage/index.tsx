@@ -25,11 +25,6 @@ export default function SubjectPage() {
     const [sort, setSort] = useState(params.get("sort")?.split(",")[0] || "Id");
     const [sortDir, setSortDir] = useState<"asc" | "desc">((params.get("sort")?.split(",")[1] as "desc" | "asc") || "desc");
     const subjectSort = ["Id", "Name", "Sessions"];
-    const subjectSortMap = {
-                                Id: "id",
-                                Name: "name",
-                                Sessions: "classSessionCount" // ou o nome real no backend
-                            };
 
     const [deleteOpen, setDeleteOpen] = useState(false);
     const [deleteTargetId, setDeleteTargetId] = useState<number | null>(null);
@@ -151,14 +146,14 @@ export default function SubjectPage() {
             const newParams: Record<string, string> = {};
 
             if (debouncedSearch) newParams.search = debouncedSearch;
-            if (sort) newParams.sort = `${subjectSortMap[sort]},${sortDir}`;
+            if (sort) newParams.sort = `${sort},${sortDir}`;
             setParams(newParams);
 
             try {
                 setLoading(true);
                 const data = await getSubjects({
                     name: debouncedSearch || undefined,
-                    sortBy: subjectSortMap[sort] || undefined,
+                    sortBy: sort || undefined,
                     sortDir: sortDir || undefined
                 });
 
