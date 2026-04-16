@@ -25,6 +25,11 @@ export default function SubjectPage() {
     const [sort, setSort] = useState(params.get("sort")?.split(",")[0] || "Id");
     const [sortDir, setSortDir] = useState<"asc" | "desc">((params.get("sort")?.split(",")[1] as "desc" | "asc") || "desc");
     const subjectSort = ["Id", "Name", "Sessions"];
+    const subjectSortMap = {
+                                Id: "id",
+                                Name: "name",
+                                Sessions: "classSessionCount" // ou o nome real no backend
+                            };
 
     const [deleteOpen, setDeleteOpen] = useState(false);
     const [deleteTargetId, setDeleteTargetId] = useState<number | null>(null);
@@ -101,6 +106,7 @@ export default function SubjectPage() {
 
     const handleDeleteConfirm = async () => {
         setDeleteOpen(false);
+        setLoading(true);
 
         const idsToDelete = deleteTargetId !== null ? [deleteTargetId] : selected;
         if (idsToDelete.length === 0) {
@@ -120,29 +126,39 @@ export default function SubjectPage() {
             setToastMessage("Subject deleted successfully.");
             setToastType('success');
             setToastOpen(true);
+            setLoading(false);
         } catch (err) {
             console.error(err);
             setToastMessage("Error deleting subject. Please try again.");
             setToastType('error');
             setToastOpen(true);
+            setLoading(false);
         } finally {
             setDeleteTargetId(null);
         }
     };
+
+        useEffect(() => {
+        const timeout = setTimeout(() => {
+            setDebouncedSearch(search);
+        }, 500);
+
+        return () => clearTimeout(timeout);
+    }, [search]);
 
     useEffect(() => {
         async function fetchData() {
             const newParams: Record<string, string> = {};
 
             if (debouncedSearch) newParams.search = debouncedSearch;
-            if (sort) newParams.sort = `${sort},${sortDir}`;
+            if (sort) newParams.sort = `${subjectSortMap[sort]},${sortDir}`;
             setParams(newParams);
 
             try {
                 setLoading(true);
                 const data = await getSubjects({
                     name: debouncedSearch || undefined,
-                    sortBy: sort || undefined,
+                    sortBy: subjectSortMap[sort] || undefined,
                     sortDir: sortDir || undefined
                 });
 
@@ -160,14 +176,6 @@ export default function SubjectPage() {
 
         fetchData();
     }, [debouncedSearch, sort, sortDir, setParams])
-
-    useEffect(() => {
-        const timeout = setTimeout(() => {
-            setDebouncedSearch(search);
-        }, 500);
-
-        return () => clearTimeout(timeout);
-    }, [search]);
 
     return (
         <>
@@ -242,9 +250,10 @@ export default function SubjectPage() {
                 }} /> 
 
             <SubjectFormModal
-                title='Editar Matéria'
+                title={editingSubject === null ? 'Cadastrar Matéria' : 'Editar Matéria'}
                 open={modalFormOpen}
                 subject={editingSubject}
+                setEditingSubject={setEditingSubject}
                 onClose={() => {setModalFormOpen(false); setEditingSubject(null);}}
                 setToastMessage={setToastMessage}
                 setToastType={setToastType}

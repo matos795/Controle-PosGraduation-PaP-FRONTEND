@@ -12,13 +12,14 @@ type Props = {
     title: string;
     open: boolean;
     subject: SubjectResponse | null;
+    setEditingSubject: () => void;
     onClose: () => void;
     setToastMessage: (message: string) => void;
     setToastType: (type: 'success' | 'error') => void;
     setShowToast: (show: boolean) => void;
 };
 
-export default function SubjectFormModal({ title, open, subject, onClose, setToastMessage, setToastType, setShowToast }: Props) {
+export default function SubjectFormModal({ title, open, subject, setEditingSubject, onClose, setToastMessage, setToastType, setShowToast }: Props) {
 
     const navigate = useNavigate();
 
@@ -54,10 +55,6 @@ export default function SubjectFormModal({ title, open, subject, onClose, setToa
             newErrors.name = "Nome é obrigatório"
         }
 
-        if (!isRequired(form.description)) {
-            newErrors.description = "Descrição é obrigatória"
-        }
-
         setErrors(newErrors);
 
         return Object.values(newErrors).every(e => e === "")
@@ -78,10 +75,11 @@ export default function SubjectFormModal({ title, open, subject, onClose, setToa
                 setToastType('error');
                 setShowToast(true);
                 setLoadingForm(false);
+                onClose();
             }
         }
         fetchStudent();
-    }, [subject, setToastMessage, setToastType, setShowToast]);
+    }, [subject, setToastMessage, setToastType, setShowToast, setLoadingForm, setEditingSubject, onClose]);
 
     if (loadingForm) {
         return (
@@ -114,6 +112,10 @@ export default function SubjectFormModal({ title, open, subject, onClose, setToa
             }
             setShowToast(true);
             setLoadingSave(false);
+            setForm({
+                name: "",
+                description: ""
+            });
 
             onClose();
             navigate("/subjects");
@@ -124,6 +126,11 @@ export default function SubjectFormModal({ title, open, subject, onClose, setToa
             setToastType('error');
             setShowToast(true);
             setLoadingSave(false);
+            setForm({
+                name: "",
+                description: ""
+            });
+            onClose();
         }
     };
 
@@ -158,7 +165,7 @@ export default function SubjectFormModal({ title, open, subject, onClose, setToa
                 </div>
 
                 <div className="cp-modal-footer">
-                    <button className="cp-btn cp-btn-modal" onClick={onClose}>
+                    <button type='button' className="cp-btn cp-btn-modal" onClick={onClose}>
                         Cancel
                     </button>
 

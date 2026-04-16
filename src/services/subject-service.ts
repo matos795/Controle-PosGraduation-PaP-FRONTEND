@@ -5,7 +5,8 @@ export async function getSubjects(params: {name?: string; sortBy?: string; sortD
     const response = await api.get("/subjects", {
         params: {
             name: params.name,
-            sort: params.sortBy ? `${params.sortBy}, ${params.sortDir}` : undefined
+            sort: params.sortBy,
+            sortDir: params.sortDir
         }
     });
     return response.data;
