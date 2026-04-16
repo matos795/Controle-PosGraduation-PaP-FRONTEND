@@ -8,6 +8,7 @@ import Home from '../layout/pages/Home'
 import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom";
 import StudentForm from '../layout/pages/features/student/components/StudentForm'
 import SubjectPage from '../layout/pages/features/subjects/pages/SubjectPage';
+import TeachersPage from '../layout/pages/features/teacher/pages/TeachersPage';
 
 const router = createBrowserRouter([
     {
@@ -79,6 +80,22 @@ const router = createBrowserRouter([
                     },
                 ]
             },
+            {
+                path: "teachers",
+                children: [
+                    {
+                        index: true,
+                        element: <TeachersPage />,
+                        handle: {
+                            title: "Teachers",
+                            breadcrumb: [
+                                { label: "Home", to: "/" },
+                                { label: "Teachers" }]
+                        }
+                    },
+                ]
+            },
+
             {
                 path: "*",
                 element: <NotFound />,

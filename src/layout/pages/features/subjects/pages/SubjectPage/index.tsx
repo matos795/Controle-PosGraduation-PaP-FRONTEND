@@ -24,7 +24,7 @@ export default function SubjectPage() {
 
     const [sort, setSort] = useState(params.get("sort")?.split(",")[0] || "Id");
     const [sortDir, setSortDir] = useState<"asc" | "desc">((params.get("sort")?.split(",")[1] as "desc" | "asc") || "desc");
-    const subjectSort = ["Id", "Name", "Sessions"];
+    const subjectSort = ["Id", "Name"];
 
     const [deleteOpen, setDeleteOpen] = useState(false);
     const [deleteTargetId, setDeleteTargetId] = useState<number | null>(null);
