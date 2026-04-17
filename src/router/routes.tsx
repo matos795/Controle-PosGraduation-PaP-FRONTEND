@@ -9,6 +9,7 @@ import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom"
 import StudentForm from '../layout/pages/features/student/components/StudentForm'
 import SubjectPage from '../layout/pages/features/subjects/pages/SubjectPage';
 import TeachersPage from '../layout/pages/features/teacher/pages/TeachersPage';
+import TeacherForm from '../layout/pages/features/teacher/pages/TeacherFormPage';
 
 const router = createBrowserRouter([
     {
@@ -93,6 +94,30 @@ const router = createBrowserRouter([
                                 { label: "Teachers" }]
                         }
                     },
+                    {
+                        path: "new",
+                        element: <TeacherForm />,
+                        handle: {
+                            title: "Add Teacher",
+                            breadcrumb: [
+                                { label: "Home", to: "/" },
+                                { label: "Teachers", to: "/teachers" },
+                                { label: "Add Teacher" }
+                            ]
+                        }
+                    },
+                    {
+                        path: ":id",
+                        element: <TeacherForm />,
+                        handle: {
+                            title: "Update Teacher",
+                            breadcrumb: [
+                                { label: "Home", to: "/" },
+                                { label: "Teachers", to: "/teachers" },
+                                { label: "Update Teacher" }
+                            ]
+                        }
+                    }
                 ]
             },
 
