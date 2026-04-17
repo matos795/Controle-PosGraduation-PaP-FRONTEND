@@ -6,7 +6,6 @@ export async function getTeachers(params: {
     page: number;
     size: number;
     name?: string;
-    status?: string;
     sortBy?: string;
     sortDir?: string;
 }): Promise<PageResponse<TeacherResponse>> {
@@ -14,7 +13,6 @@ export async function getTeachers(params: {
         page: params.page,
         size: params.size,
         name: params.name,
-        status: params.status,
         sort: params.sortBy
         ? `${params.sortBy}, ${params.sortDir}` : undefined
     }});
