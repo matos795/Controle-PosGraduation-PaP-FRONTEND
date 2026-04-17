@@ -39,7 +39,7 @@ export default function TeachersPage() {
 
     const [sort, setSort] = useState(params.get("sort")?.split(",")[0] || "Id");
     const [sortDir, setSortDir] = useState<"asc" | "desc">((params.get("sort")?.split(",")[1] as "desc" | "asc") || "desc");
-    const teacherSort = ["Id", "Name", "Email", "Class Sessions"];
+    const teacherSort = ["Id", "Name", "Email"];
 
     const [teachers, setTeachers] = useState<TeacherResponse[]>([]);
     const [totalElements, setTotalElements] = useState(0);
@@ -100,7 +100,7 @@ export default function TeachersPage() {
             { key: "email", label: "Email" },
             { key: "phone", label: "Phone" },
             { key: "address", label: "Address" },
-            { key: "enrollmentsCount", label: "Enrollments" },
+            { key: "classSessionCount", label: "Class Sessions" },
             { key: "actions", label: "", render: (row: TeacherResponse) => <ActionMenu onEdit={() => navigate(`/teachers/${row.id}`)} onDelete={() => handleRowDelete(row.id as number)} />, hideable: false }
         ];
     
