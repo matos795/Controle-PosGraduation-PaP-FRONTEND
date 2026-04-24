@@ -5,7 +5,8 @@ import ButtonPrimary from '../../../../../../components/SplitButtonPrimary'
 import './styles.css'
 import { NavLink } from 'react-router-dom'
 import PageSizeSelect from '../../../../../../components/PageSizeSelect'
-import TeacherFilterPanel from '../TeacherFilterPanel'
+import ClassSessionFilterPainel from '../ClassSessionFilterPainel'
+import type { SubjectResponse } from '../../../../../../types/subject'
 
 type Props = {
     panel: "none" | "filter" | "config";
@@ -14,16 +15,48 @@ type Props = {
     setSearch: (v: string) => void;
     sort: string;
     setSort: (sb: string) => void;
-    teacherSort: string[];
+    classSessionSort: string[];
     sortDir: string;
     setSortDir: (sbd: string) => void;
     setPage: (p: number) => void;
     size: number;
     setSize: (s: number) => void;
     onClearFilters: () => void;
+    subjects: SubjectResponse[];
+    selectedSubject: number | string;
+    onSubjectChange: (subjectId: number | string) => void;
+    fromDate: string;
+    toDate: string;
+    onFromDateChange: (date: string) => void;
+    onToDateChange: (date: string) => void;
+    selectedYear: string;
+    onYearChange: (year: string) => void;
 }
 
-export default function TeacherToolbar({ panel, setPanel, search, setSearch, sort, setSort, teacherSort, sortDir, setSortDir, setPage, size, setSize, onClearFilters }: Props) {
+export default function ClassSessionToolbar({ 
+    panel, 
+    setPanel, 
+    search, 
+    setSearch, 
+    sort, 
+    setSort, 
+    classSessionSort, 
+    sortDir, 
+    setSortDir, 
+    setPage, 
+    size, 
+    setSize, 
+    onClearFilters,
+    subjects,
+    selectedSubject,
+    onSubjectChange,
+    fromDate,
+    toDate,
+    onFromDateChange,
+    onToDateChange,
+    selectedYear,
+    onYearChange
+}: Props) {
 
     return (
         <>
@@ -51,19 +84,30 @@ export default function TeacherToolbar({ panel, setPanel, search, setSearch, sor
                         } />
                 </div>
 
-                <NavLink to='/teachers/new'>
-                    <ButtonPrimary text='Novo Professor' />
+                <NavLink to='/class-sessions/new'>
+                    <ButtonPrimary text='Novo Módulo' />
                 </NavLink>
 
             </div>
 
             {panel === "filter" && (
-                <TeacherFilterPanel
-                    sort={sort} setSort={setSort}
-                    sortDir={sortDir} setSortDir={setSortDir}
-                    sortByOptions={teacherSort}
+                <ClassSessionFilterPainel
+                    sort={sort}
+                    setSort={setSort}
+                    sortDir={sortDir}
+                    setSortDir={setSortDir}
+                    sortByOptions={classSessionSort}
                     setPage={setPage}
                     onClearFilters={onClearFilters}
+                    subjects={subjects}
+                    selectedSubject={selectedSubject}
+                    onSubjectChange={onSubjectChange}
+                    fromDate={fromDate}
+                    toDate={toDate}
+                    onFromDateChange={onFromDateChange}
+                    onToDateChange={onToDateChange}
+                    selectedYear={selectedYear}
+                    onYearChange={onYearChange}
                 />
             )}
         </>

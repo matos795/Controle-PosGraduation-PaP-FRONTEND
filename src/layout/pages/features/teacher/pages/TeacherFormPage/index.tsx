@@ -66,6 +66,7 @@ export default function TeacherForm() {
                 await createTeacher(form);
                 setToastMessage("Teacher created successfully!");
             }
+            setToastType('success');
             setShowToast(true);
             
             setTimeout(() => {

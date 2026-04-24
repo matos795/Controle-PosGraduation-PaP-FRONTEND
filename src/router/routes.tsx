@@ -10,6 +10,8 @@ import StudentForm from '../layout/pages/features/student/components/StudentForm
 import SubjectPage from '../layout/pages/features/subjects/pages/SubjectPage';
 import TeachersPage from '../layout/pages/features/teacher/pages/TeachersPage';
 import TeacherForm from '../layout/pages/features/teacher/pages/TeacherFormPage';
+import ClassSessionPage from '../layout/pages/features/classSessions/pages/ClassSessionPage';
+import ClassSessionForm from '../layout/pages/features/classSessions/pages/ClassSessionFormPage';
 
 const router = createBrowserRouter([
     {
@@ -115,6 +117,46 @@ const router = createBrowserRouter([
                                 { label: "Home", to: "/" },
                                 { label: "Teachers", to: "/teachers" },
                                 { label: "Update Teacher" }
+                            ]
+                        }
+                    }
+                ]
+            },
+
+            {
+                path: "class-sessions",
+                children: [
+                    {
+                        index: true,
+                        element: <ClassSessionPage />,
+                        handle: {
+                            title: "Class Sessions",
+                            breadcrumb: [
+                                { label: "Home", to: "/" },
+                                { label: "Class Sessions" }]
+                        }
+                    },
+                    {
+                        path: "new",
+                        element: <ClassSessionForm />,
+                        handle: {
+                            title: "Add Class Session",
+                            breadcrumb: [
+                                { label: "Home", to: "/" },
+                                { label: "Class Sessions", to: "/class-sessions" },
+                                { label: "Add Class Session" }
+                            ]
+                        }
+                    },
+                    {
+                        path: ":id",
+                        element: <ClassSessionForm />,
+                        handle: {
+                            title: "Update Class Session",
+                            breadcrumb: [
+                                { label: "Home", to: "/" },
+                                { label: "Class Sessions", to: "/class-sessions" },
+                                { label: "Update Class Session" }
                             ]
                         }
                     }

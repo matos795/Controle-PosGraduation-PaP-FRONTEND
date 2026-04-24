@@ -1,6 +1,6 @@
 import ColumnsSelector from '../../../../../../components/ColumnsSelector';
+import type { ClassSessionResponse } from '../../../../../../types/classSession';
 import type { Column } from '../../../../../../types/ColumnTable';
-import type { TeacherResponse } from '../../../../../../types/teachers';
 import './styles.css'
 
 type Props = {
@@ -9,12 +9,12 @@ type Props = {
     onDelete: () => void;
     onExport: () => void;
     onImport: () => void;
-    columns: Column<TeacherResponse>[];
+    columns: Column<ClassSessionResponse>[];
     visibleColumns: string[];
     setVisibleColumns: (cols: string[]) => void;
 };
 
-export default function TeacherConfigPanel({ 
+export default function ClassSessionConfigPanel({ 
     selectedCount, 
     clearSelection, 
     onDelete, 
@@ -29,7 +29,7 @@ export default function TeacherConfigPanel({
             <div className="cp-config-painel cp-mb20">
                 <div className='cp-config-left'>
                     <span className='cp-config-selected'>
-                        selected teachers: {selectedCount} 
+                        selected class sessions: {selectedCount} 
                     </span>
                 </div>
 

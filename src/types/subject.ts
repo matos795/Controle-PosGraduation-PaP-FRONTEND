@@ -14,3 +14,8 @@ export type UpdateSubjectRequest = {
     name: string;
     description: string;
 }
+
+export type SubjectSummaryResponse = {
+    id: number;
+    name: string;
+}

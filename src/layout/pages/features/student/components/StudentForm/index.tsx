@@ -66,6 +66,7 @@ export default function StudentForm() {
                 await createStudent(form);
                 setToastMessage("Student created successfully!");
             }
+            setToastType('success');
             setShowToast(true);
             
             setTimeout(() => {

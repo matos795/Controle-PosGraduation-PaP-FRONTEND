@@ -20,3 +20,8 @@ export type UpdateTeacherRequest = {
     phone: string;
     address: string;
 }
+
+export type TeacherSummaryResponse = {
+    id: number;
+    name: string;
+}
